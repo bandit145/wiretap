@@ -1,0 +1,13 @@
+Vagrant.configure("2") do |config|
+
+
+        config.vm.define "server1" do |client|
+        	client.vm.provider "virtualbox" do |vm|
+        		vm.memory =  2048
+        		vm.cpus = 2
+        	end
+                client.vm.network "private_network", ip: "192.168.100.2"
+                client.vm.box = "generic/centos8"
+        	client.vm.synced_folder "../", "/wiretap"
+        end
+end
