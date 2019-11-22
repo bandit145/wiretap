@@ -1,4 +1,4 @@
-from sqlalchemy import MetaData, Table, Column, String, ForeignKey
+from sqlalchemy import MetaData, Integer, Table, Column, String, ForeignKey
 
 metadata = MetaData()
 
@@ -24,10 +24,10 @@ locations = Table('locations', metadata,
 incidents = Table('incidents', metadata,
 	Column('id', Integer, primary_key=True),
 	Column('writeup', String),
-	Column('poi', None, ForeignKey('poi.id'))
+	Column('poi', None, ForeignKey('pois.id'))
 	)
 
 location_incident = Table('location_incident', metadata,
 	Column('location', None, ForeignKey('locations.id')),
-	Column('incident', None, ForeignKey('incident.id'))
+	Column('incident', None, ForeignKey('incidents.id'))
 	)

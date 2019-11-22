@@ -3,12 +3,8 @@ import os
 import logging
 from textblob import TextBlob
 import re
-client = discord.Client()
 
 # utility functions
-async def subversive_word(message):
-	if is_subversive_word(message.content):
-		await message.add_reaction('🟥')
 	 
 def is_subversive_word(message):
 	if 'communist' in message:
@@ -16,31 +12,36 @@ def is_subversive_word(message):
 	return False
 
 # bot functions
-@client.event
-async def on_ready():
-	logging.info('wiretap online')
 
-@client.event
-async def on_guild_join(guild):
-	for chan in guild.text_channels:
-		await chan.send('**click**')
+class Wiretap(discord.Client):
+	@client.event
+	async def on_ready(self):
+		logging.info('wiretap online')
+
+	@client.event
+	async def on_guild_join(self, guild):
+		for chan in guild.text_channels:
+			message = await chan.send('**click**')
+			await message.delete(delay=3)
 
 
-@client.event
-async def on_message(message):
-	await subversive_word(message)
-	if client.user in message.mentions:
-		await message.channel.send('**click**')
-	elif re.match('\$REPORT:',message.content):
-		name = message.content.split(':')[1]
-		await message.channel.send('''
-			```MAINWAY DATABASE REPORT:
-USER: {name}
-DISCORDID: TEST
-SUBVERSIVNESS: 100%
-INCIDENTS:
-	- DID BAD THING
-END MAINWAY REPORT```
-		'''.format(name=name))
-	elif client.user == message.author:
-		await message.delete(delay=3)
+	@client.event
+	async def on_message(self, message):
+		print(config)
+		if is_subversive_word(message):
+			await message.add_reaction('🟥')
+
+		if client.user in message.mentions:
+			await message.channel.send('**click**')
+			await message.delete(delay=3)
+		elif re.match('\$report:',message.content.lower()):
+			name = message.content.split(':')[1]
+			await message.channel.send('''
+				```MAINWAY DATABASE REPORT:
+	USER: {name}
+	DISCORDID: TEST
+	SUBVERSIVNESS: 100%
+	INCIDENTS:
+		- DID BAD THING
+	END MAINWAY REPORT```
+			'''.format(name=name))
