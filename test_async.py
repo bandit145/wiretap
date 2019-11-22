@@ -1,20 +1,16 @@
 import asyncio
 import time
 
-test_ls = [1,2,3,4,5]
-
-async def test_no_async():
-	for item in test_ls:
-		print(item)
-		await asyncio.sleep(0)
-async def test_no_async1():
-	print('waited 1 secs')
-
+async def count():
+	print(1)
+	await asyncio.sleep(1)
+	print(2)
 
 async def main():
-	print('wat')
-	async0 = loop1.create_task(test_no_async())
-	async1 = loop1.create_task(test_no_async1())
-	#print(short_task)
+	await asyncio.gather(count(), count(), count())
 
-asyncio.run(main())
+if __name__ == '__main__':
+	s = time.perf_counter()
+	asyncio.run(main())
+	elapsed = time.perf_counter() - s 
+	print(f"{__file__} executed in {elapsed:0.2f} seconds.")
