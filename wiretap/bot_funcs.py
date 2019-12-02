@@ -6,10 +6,12 @@ import re
 
 # utility functions
 	 
-def is_subversive_word(message):
+async def is_subversive_word(message):
 	if 'communist' in message:
 		return True
 	return False
+
+async def create
 
 # bot functions
 
@@ -28,7 +30,7 @@ class Wiretap(discord.Client):
 	@client.event
 	async def on_message(self, message):
 		print(config)
-		if is_subversive_word(message):
+		if await is_subversive_word(message):
 			await message.add_reaction('🟥')
 
 		if client.user in message.mentions:

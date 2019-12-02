@@ -7,7 +7,8 @@ pois = Table('pois', metadata,
 	Column('id', Integer, primary_key=True),
 	Column('discordid', Integer),
 	Column('pos_comments', Integer),
-	Column('neg_comments', Integer)
+	Column('neg_comments', Integer),
+	Column('flagged_comments', Integer)
 	)
 
 location_poi = Table('location_po', metadata,

@@ -6,6 +6,14 @@ from wiretap.mainway_schema import metadata
 from sqlalchemy import create_engine
 import configparser
 
+# custom wiretap client implementation with config and sqlalchemy
+class WiretapClient(client):
+
+	def __init__(self, config, db,*, loop=None, **options):
+		super().__init__(*, loop, **options)
+		self.config = config
+		self.db = db
+
 def get_config(config_file):
 	config = configparser.ConfigParser()
 	config.read(config_file)
