@@ -1,3 +1,5 @@
+# sqlite
+*.sqlite
 # vagrant
 vagrant/.vagrant/
 # Byte-compiled / optimized / DLL files

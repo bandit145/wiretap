@@ -9,10 +9,11 @@ import configparser
 # custom wiretap client implementation with config and sqlalchemy
 class WiretapClient(client):
 
-	def __init__(self, config, db,*, loop=None, **options):
+	def __init__(self, config, db, es, *, loop=None, **options):
 		super().__init__(*, loop, **options)
 		self.config = config
 		self.db = db
+		self.es = es
 
 def get_config(config_file):
 	config = configparser.ConfigParser()
@@ -22,7 +23,7 @@ def get_config(config_file):
 def configure_logging():
 	logging.basicConfig(level=logging.INFO)
 
-async def start_bot(**kwargs):
+def start_bot(**kwargs):
 	configure_logging()
 	if 'config' in kwargs.keys():
 		conf_path = kwargs['config']

@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+
+  elastic:
+    image: elasticsearch:7.4.2
+    environment:
+      - discovery.type=single-node
+    restart: always
+    ports:
+      - 127.0.0.1:9200:9200
+      - 127.0.0.1:9300:9300
